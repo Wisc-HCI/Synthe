@@ -1,0 +1,20 @@
+class Gaze():
+
+	@staticmethod
+	def get_gazes():
+		return ["None",
+				"Intimacy Modulating",
+				"Referential", 
+				"Cognitive"]
+
+class Gesture():
+
+	@staticmethod
+	def get_gestures():
+		return ["None",
+				"Left point",
+				"Right point",
+				"Center point", 
+				"Handoff", 
+				"Present"]
+
