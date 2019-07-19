@@ -1,0 +1,230 @@
+%[handoff]('training': '2028')
+    ~[prefix] ~[handing_off]
+    ~[accompanying_statement]
+%[state_purpose]('training': '4200')
+    ~[ihave] ~[a_package] ~[what_do]
+    ~[ihave] something ~[what_do]
+%[question]('training': '124')
+    ~[do_you_know] ~[what] ~[in] ~[package]
+    ~[do_you_know] ~[what] ~[being_delivered] ~[to_me]
+    what am I ~[getting]
+    ~[do_you_know] what I am ~[getting]
+    ~[from_pref] ~[who]
+    ~[do_you_know] ~[who] ~[from_suff]
+    ~[do_you_know] ~[who] is ~[package] for
+%[answer]('training': '834')
+    ~[package] is ~[from_pref] ~[name]
+    ~[package] is ~[for_you]
+    ~[package] is @[item]
+    ~[dont_know] ~[package_question_restated]
+%[handoff_request]('training': '162')
+    ~[request] ~[give] ~[package] ~[to_me]
+    ~[request] ~[give] me ~[package]
+%[sign_request]('training': '170')
+    ~[sign_req] sign ~[this] ~[reciept] ~[first]
+    ~[sign_req] sign for ~[package] ~[first]
+%[ID_query]('training': '370')
+    ~[id_inquiry] ~[name]
+    who are you
+    what is your name
+    is this ~[name] place
+    is this ~[name] home
+    is this the residence of ~[name]
+    is this where ~[name] lives
+    does ~[name] live here
+    is this ~[address]
+%[confirm_ID]('training': '18')
+    ~[confirm]
+    that's me
+    ~[pronoun] lives here
+    ~[pronoun] is my ~[family_member]
+%[deny_ID]('training': '65')
+    ~[deny]
+    that's not me
+    I'm not ~[name]
+    I don't know ~[name]
+    Do I look like ~[name]
+~[pronoun]
+    he
+    she
+~[family_member]
+    mom
+    dad
+    brother
+    sister
+    cousin
+    son
+    daughter
+~[id_inquiry]
+    are you
+    is your name
+    are you called
+~[this]
+    this
+    the
+~[reciept]
+    reciept
+    delivery reciept
+    paper
+    slip
+    line
+~[first]
+    first ~[on_reciept]
+    ~[on_reciept] before I can ~[give] ~[package] ~[to_you]
+~[sign_req]
+    ~[request]
+    ~[you_must]
+~[on_reciept]
+    on ~[this] ~[reciept] ~[here]
+    ~[here]
+~[here]
+    here
+    right here
+~[you_must]
+    you must
+    you need to
+    you'll need to
+~[request]
+    please
+    can you
+    can you please
+~[give]
+    give
+    hand
+    deliver
+~[package_question_restated]
+    what is ~[in] ~[package]
+    what ~[package] is
+    ~[what] ~[being_delivered]
+    what ~[you_are] ~[getting]
+    ~[who] ~[from_suff_restated]
+    ~[who] ~[package] is for
+~[from_suff_restated]
+    ~[it_is] from
+    sent it
+~[it_is]
+    it is
+    its
+~[you_are]
+    you are
+    youre
+~[dont_know]
+    I ~[donot] know
+    ~[iam] not sure
+~[donot]
+    do not
+    don't
+~[what]
+    what is
+    what's
+~[being_delivered]
+    being delivered
+~[do_you_know]
+    do you know
+    can you tell me
+~[to_me]
+    to me
+~[to_you]
+    to you
+~[in]
+    in
+~[getting]
+    getting
+    recieving
+~[from_pref]
+    from
+    sent by
+~[from_suff]
+    is it from
+    from
+    sent it
+~[who]
+    who
+    what person
+    what is the name of the person
+@[item]
+    socks
+    plates
+~[ihave]
+    I have a
+    I have got a
+    I've got a
+    here's a
+~[a_package]
+    package
+    delivery
+    shipment
+    box
+~[what_do]
+    ~[for_you]
+    to ~[address] ~[for_you]
+~[for_you]
+    for you
+    for ~[name]
+~[address]
+    this address
+    this place
+    this house
+    this apartment
+    one twenty west main street
+    one hundred twenty west main street
+    one two oh west main street
+    one two zero west main street
+~[name]
+    alex
+    james
+    john
+    robert
+    michael
+    william
+    david
+    richard
+    charles
+    thomas
+    mary
+    patricia
+    jennifer
+    linda
+    elizabeth
+    barbara
+    susan
+    jessica
+    sarah
+    margaret
+    karen
+    the robot
+~[handing_off]
+    handing ~[over] ~[package] ~[to_recipient]
+    handing ~[package] ~[over] ~[to_recipient]
+    handoff ~[package] ~[to_recipient]
+    giving ~[recipient] ~[package]
+    giving ~[package] ~[to_recipient]
+~[to_recipient]
+    to ~[recipient]
+~[recipient]
+    you
+    them
+    the recipient
+    recipient
+~[over]
+    over
+    off
+~[prefix]
+    ~[now] ~[iam]
+    ~[iam] ~[now]
+~[now]
+    now
+    currently
+~[iam]
+    I am
+    I'm
+~[package]
+    ~[this] ~[a_package]
+    it
+~[accompanying_statement]
+    here you go
+    here you are
+    take ~[package]
+    here's [package]
+~[situation_specific_displeasure]
+    ~[package] is late

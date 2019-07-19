@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python3 gui.py localhost ../intent_parser/chatito/help_desk_chatito_0908.txt cmd_input

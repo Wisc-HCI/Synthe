@@ -40,7 +40,7 @@ class App(QMainWindow):
  
     def __init__(self):
         super().__init__()
-        self.title = 'Improv'
+        self.title = 'Synthé'
         self.left = 10
         self.top = 10
         desktop = QApplication.desktop()

@@ -1,5 +1,6 @@
 import sys
 import json
+import os
 from grapher import *
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWebEngineWidgets import QWebEngineView
@@ -111,12 +112,7 @@ class WebViewer(QWebEngineView):
 		Grapher().make_regular(raw_edges,self.frame.bodystorm)
 
 	def load_graph(self, type):
-		if type == "basic":
-			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/example.html")
-		elif type == "dagre":
-			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/example2_mealy.html")
-		else:
-			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/example3.html")
+		url = QUrl.fromLocalFile("{}/{}".format(os.getcwd(),"d3js/mealy.html"))
 
 		self.load(url)
 
