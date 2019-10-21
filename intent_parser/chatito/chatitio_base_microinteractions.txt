@@ -1,0 +1,197 @@
+%[greeting]('training': '800')
+    ~[greet]
+%[farewell]('training': '900')
+    ~[farewell]
+%[gratitude]('training': '600')
+    ~[thank]
+%[you_are_welcome]('training': '11')
+    ~[welcome]
+%[request_help]('training': '50')
+    ~[instruct_request] ~[help_request]
+    I have a question
+%[affirm_deny]('training': '34')
+    ~[confirm]
+    ~[deny]
+%[please_wait]('training': '100')
+    ~[instruct_request?] ~[wait_statement]
+    can you please wait
+    give me a second
+    hold on for a minute
+    just a minute
+    wait for a sec
+    hold up
+%[confused]('training': '100')
+    ~[confused_utterance]
+    ~[sorry?] I ~[dont] ~[understand]
+    ~[sorry?] ~[repeat_request]
+%[displeasure]('training': '21')
+    fuck off
+    shut up
+    you suck
+    go to hell
+    I hate you
+    you're stupid
+    damn it
+    I am busy
+    dumb robot
+    stupid robot
+    don't be an idiot
+    don't be stupid
+    leave me alone
+    I am in a hurry
+    I am in a rush
+    ~[situation_specific_displasure]
+~[confused_utterance]
+    huh
+    what
+~[dont]
+    do not
+    don't
+~[understand]
+    understand
+    get it
+~[sorry]
+    sorry
+    I'm sorry
+~[repeat_request]
+    ~[instruct_request?] ~[repeat]
+~[repeat]
+    repeat yourself
+    repeat that
+    say that again
+~[wait_statement]
+    ~[wait] ~[for_duration?]
+    ~[duration_prefix] ~[duration]
+~[wait]
+    wait
+    hold on
+    hold up
+    hang on
+~[for_duration]
+    for ~[duration]
+~[duration_prefix]
+    give me
+    gimme
+~[duration]
+    ~[just?] a second
+    ~[just?] a sec
+    ~[just?] a minute
+    ~[just?] a bit
+    some time
+~[greet]
+    ~[different_greets] ~[robot?]
+    ~[different_greets] there ~[robot?]
+    greetings ~[robot?]
+    help me ~[robot?]
+    ~[different_greets] you ~[robot?]
+    excuse me ~[robot?]
+    good afternoon ~[robot?]
+    good morning ~[robot?]
+    good evening ~[robot?]
+    how are you ~[robot?]
+    how's it going ~[robot?]
+    what's up ~[robot?]
+~[different_greets]
+    hello
+    hi
+    hey
+    howdy
+~[robot_names]
+    Nao
+    now
+    robot
+~[farewell]
+    goodbye ~[robot?]
+    good bye ~[robot?]
+    bye ~[robot?]
+    see you ~[robot?]
+    see ya ~[robot?]
+    see you later ~[robot?]
+    adios ~[robot?]
+    later ~[robot?]
+    have a nice day ~[robot?]
+    cheers ~[robot?]
+    bye bye ~[robot?]
+    so long ~[robot?]
+~[confirm]
+    yeah
+    uhuh
+    yup
+    yessir
+    yes madam
+    yes ma'am
+    yeppers
+    yep
+    sure
+    yes thats right
+    correct
+    right
+    mhm
+    yes that is correct
+    you are correct
+    you are right
+    thats the right idea
+    you got it
+    yup thats right
+    thats correct yes
+    yes thats perfect
+~[deny]
+    no
+    nope
+    not at all
+    incorrect
+    nah
+    no sir
+    no madam
+    no ma'am
+    wrong
+    thats not right
+    no thats wrong
+    thats wrong
+    I dont think so
+~[thank]
+    I appreciate it
+    ~[thankyou_thanks] for your help
+    I appreciate your help
+    ~[thankyou_thanks]
+    appreciated
+    you have my gratitude
+    wow ~[thankyou_thanks]
+    great ~[thankyou_thanks]
+    cool ~[thankyou_thanks]
+    thanks a lot
+    many thanks
+    much appreciated
+    ~[thankyou_thanks] for the help
+~[thankyou_thanks]
+    thank you
+    thanks
+~[welcome]
+    you're welcome
+    you are welcome
+    no problem
+    no problem at all
+    gladly
+    anytime
+    no worries
+    of course
+    happily
+    it's my pleasure
+    my pleasure
+~[help_request]
+    help
+    help me
+    help me out
+    help me with something
+    give me a hand
+~[instruct_request]
+    ~[can] you
+    ~[can] you please
+    ~[wondering] if you ~[can]
+    I was hoping you ~[can]
+~[can]
+    can
+    could
+~[wondering]
+    I was wondering
+    I wanted to know

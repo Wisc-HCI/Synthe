@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mma>
+  <name>Interaction</name>
+  <design>Help Desk</design>
+  <state id="0" init="True">
+    <transition id="0" />
+  </state>
+  <state id="1" init="False" />
+  <state id="2" init="False" />
+  <state id="3" init="False" />
+  <state id="4" init="False" />
+  <state id="5" init="False" />
+  <transition id="0">
+    <source ref="0" />
+    <target ref="4" />
+    <input ref="greeting" />
+    <output ref="greeting" />
+    <gesture ref="Present" />
+    <speech>
+      <value>3 </value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+</mma>

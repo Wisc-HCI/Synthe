@@ -1,0 +1,8 @@
+digraph G {
+	Start -> greeting [label=greeting]
+	price_statement -> price_statement [label=price_query]
+	price_statement -> help_query [label=gratitude]
+	you_are_welcome -> price_statement [label=price_query]
+	you_are_welcome -> you_are_welcome [label=gratitude]
+	you_are_welcome -> farewell [label=farewell]
+}

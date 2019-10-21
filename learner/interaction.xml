@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mma>
+  <name>Interaction</name>
+  <design>Delivery</design>
+  <state id="0" init="True">
+    <transition id="0" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <gaze ref="intimacy" />
+    <gesture ref="beat" />
+  </state>
+  <state id="1" init="False">
+    <transition id="1" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <gaze ref="intimacy" />
+    <gesture ref="beat" />
+  </state>
+  <state id="2" init="False">
+    <transition id="2" />
+    <transition id="3" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <gaze ref="intimacy" />
+    <gesture ref="beat" />
+  </state>
+  <state id="3" init="False">
+    <transition id="4" />
+    <transition id="5" />
+    <transition id="6" />
+    <transition id="7" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <gaze ref="intimacy" />
+    <gesture ref="beat" />
+  </state>
+  <state id="4" init="False">
+    <transition id="8" />
+    <transition id="9" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <gaze ref="intimacy" />
+    <gesture ref="beat" />
+  </state>
+  <state id="5" init="False">
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <gaze ref="intimacy" />
+    <gesture ref="beat" />
+  </state>
+  <transition id="0">
+    <source ref="0" />
+    <target ref="4" />
+    <input ref="Empty" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="1">
+    <source ref="1" />
+    <target ref="4" />
+    <input ref="Empty" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="2">
+    <source ref="2" />
+    <target ref="3" />
+    <input ref="previously_stated_location_query" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="3">
+    <source ref="2" />
+    <target ref="3" />
+    <input ref="Empty" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="4">
+    <source ref="3" />
+    <target ref="4" />
+    <input ref="deny" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="5">
+    <source ref="3" />
+    <target ref="5" />
+    <input ref="help_query" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="6">
+    <source ref="3" />
+    <target ref="2" />
+    <input ref="location_statement" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="7">
+    <source ref="3" />
+    <target ref="1" />
+    <input ref="Empty" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="8">
+    <source ref="4" />
+    <target ref="1" />
+    <input ref="previously_stated_location_query" />
+    <ouptut ref="greeting" />
+  </transition>
+  <transition id="9">
+    <source ref="4" />
+    <target ref="2" />
+    <input ref="Empty" />
+    <ouptut ref="greeting" />
+  </transition>
+</mma>

@@ -1,0 +1,35 @@
+[And(And(And(And(And(And(And(And(And(And(And(And(And(And(And(And(And(And(And(And(...,
+                                        ...),
+                                        ... < ...),
+                                        f_ge(..., ...) >= 0),
+                                        f_ge(1, 3) < 5),
+                                        f_ge(2, 0) >= 0),
+                                        f_ge(2, 0) < 5),
+                                        f_ge(2, 1) >= 0),
+                                        f_ge(2, 1) < 5),
+                                        f_ge(2, 2) >= 0),
+                                        f_ge(2, 2) < 5),
+                                        f_ge(2, 3) >= 0),
+                                     f_ge(2, 3) < 5),
+                                 f_ge(3, 0) >= 0),
+                             f_ge(3, 0) < 5),
+                         f_ge(3, 1) >= 0),
+                     f_ge(3, 1) < 5),
+                 f_ge(3, 2) >= 0),
+             f_ge(3, 2) < 5),
+         f_ge(3, 3) >= 0),
+     f_ge(3, 3) < 5),
+ 0 >=
+ 0 +
+ t_err_0_0 +
+ t_err_0_1 +
+ t_err_0_2 +
+ t_err_0_3 +
+ t_err_0_4 +
+ t_err_0_5 +
+ ge_err_0_0 +
+ ge_err_0_1 +
+ ge_err_0_2 +
+ ge_err_0_3 +
+ ge_err_0_4 +
+ ge_err_0_5]

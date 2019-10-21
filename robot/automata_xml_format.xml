@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mma> [1]
+  <name> automata_name </name> [1]
+
+  <design> design_name </design> [1]
+
+  #Note: states should be written in order of id
+  <state id = int, name = string, init = bool> [1...Many]
+    <transition id = int> [0...Many]
+    <speech> [1]
+      <value>text</value> [1...Many]
+    </speech>
+    <gaze ref = ["none", "intimacy", "cognitive", "referential", "affiliative"]> [1]
+    <gesture ref = ["none", "beat", "point_left", "point_right", "point_center", "group_left", "group_right", "sweep_left", "sweep_right"]> [1]
+  </state>
+
+  <transition id = int> [0...Many]
+    <source ref = int>  [1]
+    <target ref = int> [1]
+    <input input_letter = "string"> [1]
+    <output output_letter = "string"> [1]
+    <timeout timeout = float>
+  </transition>
+</mma>

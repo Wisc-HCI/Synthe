@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mma>
+  <name>Interaction</name>
+  <design>Help Desk</design>
+  <state id="0" init="True">
+    <transition id="0" />
+  </state>
+  <state id="1" init="False" />
+  <state id="2" init="False">
+    <transition id="1" />
+    <transition id="2" />
+  </state>
+  <state id="3" init="False" />
+  <state id="4" init="False">
+    <transition id="3" />
+    <transition id="4" />
+  </state>
+  <state id="5" init="False" />
+  <transition id="0">
+    <source ref="0" />
+    <target ref="4" />
+    <input ref="please_wait" />
+    <output ref="displeasure" />
+    <gesture ref="Point" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="1">
+    <source ref="2" />
+    <target ref="4" />
+    <input ref="location_query" />
+    <output ref="location_query" />
+    <gesture ref="Wave" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="2">
+    <source ref="2" />
+    <target ref="1" />
+    <input ref="Empty" />
+    <output ref="location_query" />
+    <gesture ref="Wave" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="3">
+    <source ref="4" />
+    <target ref="2" />
+    <input ref="please_wait" />
+    <output ref="instruction" />
+    <gesture ref="Beat" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="4">
+    <source ref="4" />
+    <target ref="2" />
+    <input ref="location_statement" />
+    <output ref="price_statement" />
+    <gesture ref="Beat" />
+    <speech>
+      <value>Example speech.</value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+</mma>

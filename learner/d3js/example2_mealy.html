@@ -1,0 +1,368 @@
+<!doctype html>
+
+<meta charset="utf-8">
+
+<style id="css">
+body {
+  font: 300 14px 'Helvetica Neue', Helvetica;
+}
+.node rect {
+  stroke: #333;
+  fill: #fff;
+}
+.edgePath path {
+  stroke: #333;
+  fill: #333;
+  stroke-width: 1.5px;
+}
+
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="../node_modules/dagre-d3/dist/dagre-d3.js"></script>
+<svg width=960 height=960><g/></svg>
+
+<script id="js">
+// Create a new directed graph
+var g = new dagreD3.graphlib.Graph().setGraph({});
+
+d3.json("dimensions.json", function(data) {
+  d3.json("links.json", function(state_diagram) {
+
+    var link_data = state_diagram["links"]
+    var state_data = state_diagram["states"]
+
+    var font_size = data["font"]
+    var nonverb = data["behaviors"]
+
+    // setup a dictionary of states
+    state_traffic = {}
+    for (var i=0; i < link_data.length; i++) {
+      var obj = link_data[i]
+      state_traffic[obj["source"]] = 0
+      state_traffic[obj["target"]] = 0
+    }
+
+    // states and transitions
+    var states = []
+    var targets = []
+    var max_id = -1
+    for(var i = 0; i < link_data.length; i++) {
+
+      var obj = link_data[i];
+
+      var src = obj["source"]
+      var tar = obj["target"]
+      targets.push(tar)
+
+      state_traffic[src] += 1
+      state_traffic[tar] += 1
+
+      if (tar > max_id)
+        max_id = tar
+      if (src > max_id)
+        max_id = src
+
+      if (!states.includes(src)) {
+        states.push(src)
+      }
+      if (!states.includes(tar)) {
+        states.push(tar)
+      }
+    }
+
+    // dict for whether self loops are collapsed or not
+    let collapsed = {}
+
+    states.forEach(function(state) {
+      if (!targets.includes(state))
+        g.setNode(state, { label: "o", final: state_data[state]["final"], reach: state_data[state]["reachable"], shape: "circle", init: true, inter: false});
+      else
+        g.setNode(state, { label: "o", final: state_data[state]["final"], reach: state_data[state]["reachable"], shape: "circle", init: false, inter: false});
+
+      collapsed[state] = 0;
+    });
+
+    /*
+    DICTIONARIES
+    */
+    let self_loops = {}
+    let consolidated_nodes = {}
+
+    /*
+    SET UP LINKS and NODES
+    */
+    for(var i = 0; i < link_data.length; i++) {
+
+      var obj = link_data[i];
+
+      var src = obj["source"]
+      var tar = obj["target"]
+      var inp = obj["input"]
+      var output = obj["output"]
+      var gesture = obj["gesture"]
+
+      var node_label = output;
+      if (nonverb)
+        node_label = output.toUpperCase() + "\ngesture: " + gesture;
+
+      let node_dict = { label: node_label, inter: true, style: "stroke: black", labelStyle: "font-size: " + font_size + "; fill: black"};
+      let edge1_dict = {label:inp, arrowhead: "undirected", style: "stroke: black; fill: none;", arrowheadStyle: "fill: black; stroke: black;", labelStyle: "font-style: italic; font-size: " + font_size + "; cursor: default; fill: black"};
+      let edge2_dict = {label:"", style: "stroke: black; fill: none;", arrowheadStyle: "fill: black; stroke: black;"};
+      g.setNode(i+100, node_dict)
+      g.setEdge(src, i+100, edge1_dict);
+      g.setEdge(i+100, tar, edge2_dict)
+
+      if (src == tar) {
+        if (!(src in self_loops)) {
+          self_loops[src] = [];
+          consolidated_nodes[src] = [src+1000, {label: "<HIDDEN>", inter: true, style: "stroke: silver", labelStyle: "font-size: " + font_size + "; fill: silver"},{label:"", arrowhead: "undirected", style: "stroke: silver; fill: none;", arrowheadStyle: "fill: silver; stroke: silver; cursor: default; fill: silver"}, {label:"", style: "stroke: silver; fill: none;", arrowheadStyle: "fill: silver; stroke: silver;"}]
+        }
+        self_loops[src].push([[src,i+100,edge1_dict],[i+100,node_dict],[i+100,tar,edge2_dict]])
+      }
+    }
+
+    // Set some general styles
+    g.nodes().forEach(function(v) {
+
+      var node = g.node(v);
+      node.rx = node.ry = 5;
+
+      var nodestyle = "";
+
+      if (node["final"])
+        nodestyle += "fill: #f77; stroke: #000;";
+      else if (node["init"])
+        nodestyle += "fill: #7f7; stroke: #000;";
+      else if (!node["inter"]) {
+        nodestyle += "fill: #ccc; stroke: #000;";
+      }
+
+      if (v in self_loops) {
+        nodestyle += "cursor: pointer;"
+      };
+
+      node.style = nodestyle
+      if (node["reach"] == false) {
+        node.style = "stroke: gray"
+        node.labelStyle = "font-size: " + font_size + "; fill: silver"
+      }
+      else {
+        node.labelStyle = "font-size: " + font_size
+      }
+
+      var num_edges = 0;
+      if (v < 100 && node["final"]) {
+        node.labelStyle = "font-size: 1; fill: #f77"
+      }
+      if (v < 100 && node["init"]) {
+        node.labelStyle = "font-size: 1; fill: #000"
+      }
+      if (v < 100 && !node["final"] && !node["init"]) {
+        num_edges = state_traffic[v]
+        if (num_edges <= 4) {
+          node.labelStyle = "font-size: 1; fill: #ccc"
+        }
+        else if (num_edges <= 6) {
+          node.labelStyle = "font-size: 6; fill: #ccc"
+        }
+        else if (num_edges <= 8) {
+          node.labelStyle = "font-size: 12; fill: #ccc"
+        }
+        else {
+          node.labelStyle = "font-size: 18; fill: #ccc"
+        }
+      }
+
+      if (v in self_loops) {
+        node.labelStyle += "; cursor: pointer;"
+      }
+      else {
+        node.labelStyle += "; cursor: default;"
+      }
+
+    });
+
+    g.edges().forEach(function(v) {
+      var edge = g.edge(v);
+      if (g.node(v.v)["reach"] == false) {
+        var source = -1;
+        for (var i = 0; i < link_data.length; i++) {
+          if (parseInt(v.v) == link_data[i]["source"])
+            source = i;
+        }
+        g.setEdge(v.v, v.w, {style: "stroke: silver; fill: none;", arrowheadStyle: "fill: silver; stroke: silver;", label: link_data[source]["input"] + "", labelStyle: "font-size: " + font_size + "; fill: silver; cursor: default;"})
+
+      }
+      else {
+        edge.labelStyle = "font-style: italic; font-size: " + font_size + "; cursor: default;"
+      }
+    });
+
+    var svg = d3.select("svg"),
+        inner = svg.select("g");
+
+    svg.attr("width", data["width"]);
+    svg.attr('height', data["height"]);
+
+    // global variable for current scale
+    let curr_scale = 0.75
+
+    // Set up zoom support
+    var zoom = d3.zoom().on("zoom", function() {
+          console.log("~~~~~~~")
+          //let curr_graph_position_x = inner._groups[0][0].transform.baseVal[0].matrix.e;
+          //let curr_graph_position_y = inner._groups[0][0].transform.baseVal[0].matrix.f;
+
+          console.log(d3.zoomTransform(this))
+          //console.log(curr_graph_position_y)
+
+          //inner.call(zoom.transform,d3.zoomIdentity.translate((d3.zoomTransform(this)).x, (d3.zoomTransform(this)).y).scale((d3.zoomTransform(this)).k));
+          inner.attr("transform", "translate(" + (d3.zoomTransform(this)).x + "," +(d3.zoomTransform(this)).y+ ")" + "scale(" + (d3.zoomTransform(this)).k + ")");
+          curr_scale = (d3.zoomTransform(this)).k
+          console.log((d3.zoomTransform(this)).x)
+          //console.log((d3.event.transform).y)
+          //console.log(curr_scale)
+        });
+
+    //function zoomed() {
+    //  inner.attr("transform", "translate(" + d3.event.transform.translate + ")" + "scale(" + d3.event.transform.scale + ")");
+    //};
+
+    svg.call(zoom);
+    // Create the renderer
+    var render = new dagreD3.render();
+    // Run the renderer. This is what draws the final graph.
+    render(inner, g);
+    // Center the graph
+    var initialScale = curr_scale;
+    svg.call(zoom.transform, d3.zoomIdentity.translate((svg.attr("width") - g.graph().width * initialScale) / 2, 20).scale(initialScale));
+    //svg.attr('height', g.graph().height * initialScale + 40);
+
+    svg.selectAll("g.node")  // For new circle, go through the update process
+      .on("click", handleClickState);
+
+    // Custom transition function
+    //g.graph().transition = function(selection) {
+    //  return selection.transition().duration(500);
+    //};
+
+    // handle clicking of state
+    function handleClickState(d, i) {
+      let nodeMouseCoordinates = d3.mouse(this);
+      let overallCoordinates = d3.mouse(this.parentNode);
+      let origNodePosition_x = this.transform.baseVal[0].matrix.e;
+      let origNodePosition_y = this.transform.baseVal[0].matrix.f;
+
+      // determine what kind of node we're dealing with
+      if (g.node(d)["shape"] == "circle") {
+        console.log("clicked circle " + d)
+
+        if (collapsed[d] == 0 && d in self_loops) {
+          for (var i in self_loops[d]) {
+            let edge1 = self_loops[d][i][0]
+            edge1[2]["style"] = "stroke: silver; fill: none;";
+            edge1[2]["arrowheadStyle"] = "fill: silver; stroke: silver;";
+            edge1[2]["labelStyle"] = "font-style: italic; font-size: " + font_size + "; cursor: default; fill: silver";
+            let node1 = self_loops[d][i][1]
+            node1[1]["style"] = "stroke: silver";
+            node1[1]["labelStyle"] = "font-size: " + font_size + "; fill: silver";
+            let edge2 = self_loops[d][i][2]
+            edge2[2]["style"] = "stroke: silver; fill: none;"
+            edge2[2]["arrowheadStyle"] = "fill: silver; stroke: silver;"
+            g.setEdge(edge1[0],edge1[1],edge1[2])
+            g.setNode(node1[0],node1[1])
+            g.setEdge(edge2[0],edge2[1],edge2[2])
+          };
+          collapsed[d] = 1;
+        }
+        else if (collapsed[d] == 1 && d in self_loops) {
+          for (var i in self_loops[d]) {
+            let edge1 = self_loops[d][i][0]
+            let node1 = self_loops[d][i][1]
+            let edge2 = self_loops[d][i][2]
+            g.removeEdge(edge1[0],edge1[1])
+            g.removeNode(node1[0])
+            g.removeEdge(edge2[0],edge2[1])
+          };
+          g.setNode(consolidated_nodes[d][0], consolidated_nodes[d][1])
+          g.setEdge(d,consolidated_nodes[d][0],consolidated_nodes[d][2])
+          g.setEdge(consolidated_nodes[d][0],d,consolidated_nodes[d][3])
+          // deal with the consolidated nodes
+          collapsed[d] = 2;
+        }
+        else if (collapsed[d] == 2 && d in self_loops) {
+          for (var i in self_loops[d]) {
+            let edge1 = self_loops[d][i][0]
+            edge1[2]["style"] = "stroke: black; fill: none;";
+            edge1[2]["arrowheadStyle"] = "fill: black; stroke: black;";
+            edge1[2]["labelStyle"] = "font-style: italic; font-size: " + font_size + "; cursor: default; fill: black";
+            let node1 = self_loops[d][i][1]
+            node1[1]["style"] = "stroke: black";
+            node1[1]["labelStyle"] = "font-size: " + font_size + "; fill: black";
+            let edge2 = self_loops[d][i][2]
+            edge2[2]["style"] = "stroke: black; fill: none;"
+            edge2[2]["arrowheadStyle"] = "fill: black; stroke: black;"
+            g.setEdge(edge1[0],edge1[1],edge1[2])
+            g.setNode(node1[0],node1[1])
+            g.setEdge(edge2[0],edge2[1],edge2[2])
+          };
+          collapsed[d] = 0;
+          g.removeNode(consolidated_nodes[d][0])
+          g.removeEdge(d,consolidated_nodes[d][0])
+          g.removeEdge(consolidated_nodes[d][0],d)
+        }
+
+        // remove all self-loops
+      }
+
+      //node.style = "fill: #777; stroke: #000;";
+      render(inner, g);
+      svg.selectAll("g.node")  // For new circle, go through the update process
+        .on("click", handleClickState);
+
+      let new_svg_node = g.node(d).elem
+
+      let finalNodePosition_x = new_svg_node.transform.baseVal[0].matrix.e;
+      let finalNodePosition_y = new_svg_node.transform.baseVal[0].matrix.f;
+
+      let x_diff = finalNodePosition_x*curr_scale - origNodePosition_x*curr_scale;
+      let y_diff = finalNodePosition_y - origNodePosition_y;
+
+      //console.log(inner._groups[0][0].transform.baseVal[0].matrix.e)
+      let curr_graph_position_x = inner._groups[0][0].transform.baseVal[0].matrix.e;
+      let curr_graph_position_y = inner._groups[0][0].transform.baseVal[0].matrix.f;
+      let curr_graph_scale = null;
+
+      let new_x_pos = curr_graph_position_x - x_diff;
+      console.log(new_x_pos)
+      //console.log(curr_graph_position_y)
+      //console.log(curr_scale)
+
+      //inner.attr("transform", "translate("+ new_x_pos +","+curr_graph_position_y+") scale("+ curr_scale +")");
+      d3.select("svg").call(zoom.transform,d3.zoomIdentity.translate(new_x_pos, curr_graph_position_y).scale(curr_scale));
+
+      // get the new coordinates of the node
+      //d3.select(this).attr({
+      //  fill: "black"
+      //});
+    }
+
+    // A function that update the color circle
+    let changeLabel = function(){
+      for(var i = 0; i < link_data.length; i++) {
+
+        var obj = link_data[i];
+        var gesture = obj["gesture"]
+        let node_label = output.toUpperCase() + "\ngesture: " + gesture;
+
+        g.node(i+100)["label"] = node_label
+      }
+    }
+
+
+
+  });
+});
+</script>
+</body>
