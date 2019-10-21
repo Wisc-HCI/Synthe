@@ -98,7 +98,7 @@ class PerformanceManager:
         }
 
     def state_begin(self):
-        self.speech.speak("Preparing interaction, one moment please.")
+        self.speech.speak("Preparing interaction.")
 
     def begin_head_movements(self):
         self.motion.intimacyModulating()
