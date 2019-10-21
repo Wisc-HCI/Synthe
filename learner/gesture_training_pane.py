@@ -151,7 +151,7 @@ class GestureTrackerDialog(QDialog):
 
     def update_gesture_train_data(self):
         print("updating")
-        with open("data_train.pkl", "wb") as outfile:
+        with open("myo_armband/data_train.pkl", "wb") as outfile:
             pickle.dump(self.gesture_data, outfile)
 
     def item_clicked(self):
