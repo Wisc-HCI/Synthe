@@ -65,8 +65,8 @@ class Bodystorm():
 
 		# parse the gestures array
 		# start: 1553722212.6676118 data: [1553722214.0913858,1553722214.4122365,beat][1553722214.472396,1553722217.1194124,beat][1553722218.2223358,1553722220.0872793,beat]'
-		#gstr = gestures.decode("utf-8")
-		gstr = gestures
+		gstr = gestures.decode("utf-8")
+		#gstr = gestures
 		start_idx = 7
 		start_idx_end = gstr.find("data:") - 1
 		data_idx = gstr.find("data:") + 6

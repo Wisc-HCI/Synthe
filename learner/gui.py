@@ -370,6 +370,12 @@ class App(QMainWindow):
 
             self.update_progress_bar(10,"interpreting speech")
 
+            if len(array1) == 0 and len(array2) == 0:
+                print("no demo to create")
+                self.update_progress_bar(100,"finished")
+                self.hide_progress_bar()
+                return
+
             # depending on who is the robot, we need to rearrange the order of
             # what we give to the bodystorm class
             if not self.p1_is_robot:

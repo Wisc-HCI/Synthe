@@ -80,7 +80,7 @@ class AudioThreadder():
 				break
 
 		self.remove_sound_file()
-		self.increment_audio_file_name(mic_id)
+		self.increment_audio_file_name(mic_id["id"])
 
 	def gather_data(self, bodystorm_data,mic_id):
 		audio_listener = AudioInput(self.audio_filename, mic_id)

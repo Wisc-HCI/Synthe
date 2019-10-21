@@ -208,13 +208,9 @@ class AudioRefresherThread(QThread):
         self.update_devices.connect(update_device_callback)
 
     def run(self):
-        while not self.terminate:
-            sd._terminate()
-            sd._initialize()
-            if self.terminate:
-                break
-            self.update_devices.emit()
-            time.sleep(2)
+        sd._terminate()
+        sd._initialize()
+        self.update_devices.emit()
 
     def init_termination(self):
         self.terminate = True

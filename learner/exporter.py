@@ -7,7 +7,7 @@ from intent_parser import IntentRecognition
 class Exporter():
 
 	def __init__(self):
-		self.ir = IntentRecognition('../intent_parser/projects/default/help_desk', '../intent_parser/config/config_spacy.yml')
+		self.ir = IntentRecognition('../intent_parser/projects/default/help desk', '../intent_parser/config/config_spacy.yml')
 
 	def indent(self, elem, level=0):
 		'''
@@ -38,7 +38,7 @@ class Exporter():
 
 		# will change later so that it isn't hardcoded
 		name = ET.SubElement(root, "name").text = "Interaction"
-		design = ET.SubElement(root, "design").text = bodystorm.design 
+		design = ET.SubElement(root, "design").text = bodystorm.design
 
 		# create a state-transition mapping (id -> transition object)
 		curr_state = -1
@@ -267,5 +267,3 @@ class Transition():
 		self.output_letter = "" # should map to the target state
 		self.gesture = "None"
 		self.speech = []
-
-

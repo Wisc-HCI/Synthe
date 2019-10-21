@@ -13,11 +13,11 @@
   <transition id="0">
     <source ref="0" />
     <target ref="4" />
-    <input ref="greeting" />
-    <output ref="greeting" />
-    <gesture ref="Present" />
+    <input ref="Empty" />
+    <output ref="location_query" />
+    <gesture ref="Point" />
     <speech>
-      <value>3 </value>
+      <value>to have </value>
     </speech>
     <timeout timeout="3" />
   </transition>

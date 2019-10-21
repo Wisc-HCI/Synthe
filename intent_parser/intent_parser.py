@@ -75,6 +75,7 @@ def recognize_speech(audio_file):
     else:
         print("about to call watson tts")
         speech_recognition_results = call_watson_tts(audio_file)
+        print("received results from watson_tts")
 
     # we can also save our transcript
     if len(sys.argv) > 5 and sys.argv[5] == "save_transcripts":
