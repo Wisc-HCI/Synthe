@@ -8,17 +8,25 @@ In bodystorming, a design team acts out an exampleinteraction between a human an
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Software Prerequisites
+## Software Prerequisites and Installation
 
-To run Synthé, the following are required:
+To install Synthé, the following are required:
 
 - Python 3
 - Python bindings for the Z3 prover
 - D3
-- Dagre D3 installed in a folder called learner/node_modules
-- Rasa
+- Dagre D3
+- Rasa-nlu
 - PyAudio
 - sounddevice
+
+Once the above libraries are installed, pull the code from this repository.
+
+```
+git clone https://github.com/Wisc-HCI/Synthe.git
+```
+
+To use D3 and Dagre D3, place the d3js folder and node_modules folder in /learner.
 
 ## Hardware Prerequisites
 
@@ -30,9 +38,13 @@ At minimum, Synthé requires only one microphone be connected to the computer th
 
 Synthé currently supports gesture recognition through the Myo Armband [2]. Gesture recognition is not required to run Synthé, though. To support the usage of any device that records acceleration and orientation, Synthé interfaces can interface with these technologies through a server-client setup. Support for other gesture recognition technologies must be developed separately.
 
+If you plan on using the Myo armband, you will need to install the SDK from https://support.getmyo.com/hc/en-us/articles/360018409792-Myo-Connect-SDK-and-firmware-downloads.
+
 ### Robot Simulation
 
 Synthé also supports the ability to simulate programs created through its program synthesis engine on a real robot. The only robot currently supported is Nao [3]. To support the usage of any robot that simulates programs created through Synthé, Synthé interfaces with these robots through a server-client setup. Support for other robots must be developed separately.
+
+If you plan on simulating the code on a Nao robot, you will need to install the naoqi SDK (version 2.1.4) from softbank robotics. Place the SDK in the /robot folder.
 
 # Running Synthé
 
@@ -42,7 +54,7 @@ From the learner directory, execute
 python3 gui.py
 ```
 
-Note that without microphones and a robot hooked up to Synthé,capturing designers' intent is limited to the command line. When you press record, you have the option to enter the inputs and outputs of the human and the robot manually on the command line.
+Note that without microphones and a robot hooked up to Synthé, capturing designers' intent is limited to the command line. When you press record, you have the option to enter the inputs and outputs of the human and the robot manually on the command line.
 
 # Citing Synthé
 
