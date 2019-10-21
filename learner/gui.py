@@ -638,21 +638,30 @@ class App(QMainWindow):
     def open_audio_pref(self):
         audio_dialog = AudioInputDialog(self.participants_to_devices)
         audio_dialog.exec_()
-        print("will we return?")
-        if audio_dialog.devices_to_return is None:
-            print("returning")
-            return
-        self.participants_to_devices = audio_dialog.devices_to_return
-        self.participant_names = []
-        for name in self.participants_to_devices.keys():
-            self.participant_names.append(name)
 
-        # update the connection label
-        if len(self.participant_names) == 1:
-            self.connector.connect_designer(1)
-        elif len(self.participant_names) == 2:
-            self.connector.connect_designer(1)
-            self.connector.connect_designer(2)
+        '''
+        Below is a temporary fix to a rare bug that causes the program to quit
+
+        TODO: determine cause of bug, remove try-except statements and fix bug
+        '''
+        try:
+            if audio_dialog.devices_to_return is None:
+                return
+            self.participants_to_devices = audio_dialog.devices_to_return
+            self.participant_names = []
+            for name in self.participants_to_devices.keys():
+                self.participant_names.append(name)
+
+            # update the connection label
+            if len(self.participant_names) == 1:
+                self.connector.connect_designer(1)
+            elif len(self.participant_names) == 2:
+                self.connector.connect_designer(1)
+                self.connector.connect_designer(2)
+        except:
+            print("ERROR: specification of audio input devices failed")
+            self.participants_to_devices = {}
+            self.participant_names = []
 
     def save_traces(self, autosave=False):
         if not autosave:
