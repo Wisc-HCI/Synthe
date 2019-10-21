@@ -335,11 +335,13 @@ class App(QMainWindow):
             #array1, array2 = self.bodystorm_listener.end_record()
 
             print("beginning end thread 1")
-            #_thread.start_new_thread(self.armband_connector.end_record, ("end_thread_armband",))
-            self.armband_connector.end_record("sdf")
+            _thread.start_new_thread(self.armband_connector.end_record, ("end_thread_armband",))
+            #self.armband_connector.end_record("sdf")
             print("beginning end thread 2")
             num_participants = len(self.participant_names)
-            _thread.start_new_thread(self.bodystorm_listener.end_record, (num_participants,))
+            _thread.start_new_thread(self.bodystorm_listener.end_record, (1,num_participants,))
+            if num_participants > 1:
+                _thread.start_new_thread(self.bodystorm_listener.end_record, (2,num_participants,))
             #num_participants = len(self.participant_names)
             #self.bodystorm_listener.end_record(num_participants)
 

@@ -35,18 +35,19 @@ class MicrophoneController():
 
             return False
 
-    def end_record(self, num_participants):
+    def end_record(self, participant, num_participants):
         try:
 
             # attempting to send the end message
             print("attempting to send the end message")
-            self.at1.end_recording()
-            self.message1 = self.at1.data_string
-            if num_participants > 1:
+            if participant == 1:
+                self.at1.end_recording()
+                self.message1 = self.at1.data_string
+                if num_participants < 2:
+                    self.message2 = ""
+            if participant == 2:
                 self.at2.end_recording()
                 self.message2 = self.at2.data_string
-            else:
-                self.message2 = ""
 
             return None
             #return message1, message2
