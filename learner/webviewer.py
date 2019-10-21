@@ -99,7 +99,7 @@ class WebViewer(QWebEngineView):
 			if st in original_state_mapper:
 				for state in original_state_mapper[st]:
 					#print("reach: {}".format(reachability[st]["gesture"]))
-					json_array["states"][state] = {"id": state, 
+					json_array["states"][state] = {"id": state,
 											    "reachable": reachability[st]["reach"],
 											    "final": True if reachability[st]["reach"] == True and len(reachability[st]["outputs"]) == 0 else False}
 			#print(reachability[st])
@@ -114,7 +114,7 @@ class WebViewer(QWebEngineView):
 		if type == "basic":
 			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/example.html")
 		elif type == "dagre":
-			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/example2_mealy.html")
+			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/synthe/learner/d3js/example2_mealy.html")
 		else:
 			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/example3.html")
 
