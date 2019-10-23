@@ -50,11 +50,7 @@ If you plan on simulating the code on a Nao robot, you will need to install the 
 
 # Running Synthé
 
-From the learner directory, execute
-
-```
-python3 gui.py
-```
+From the top directory, execute ```./synthe```.
 
 Note that without microphones and a robot hooked up to Synthé, capturing designers' intent is limited to the command line. When you press record, you have the option to enter the inputs and outputs of the human and the robot manually on the command line.
 
