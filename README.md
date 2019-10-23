@@ -26,7 +26,7 @@ Once the above libraries are installed, pull the code from this repository.
 git clone https://github.com/Wisc-HCI/Synthe.git
 ```
 
-To use D3 and Dagre D3, place the d3js folder and node_modules folder in /learner.
+To use D3 and Dagre D3, place the node_modules folder in /learner.
 
 ## Hardware Prerequisites
 
