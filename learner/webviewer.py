@@ -6,10 +6,11 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 class WebViewer(QWebEngineView):
 
-	def __init__(self, frame, parent):
+	def __init__(self, frame, parent, cwd):
 		super().__init__(parent)
 		self.label = parent
 		self.frame = frame
+		self.cwd = cwd
 
 		#self.setStyleSheet("background-color: blue")
 
@@ -112,11 +113,11 @@ class WebViewer(QWebEngineView):
 
 	def load_graph(self, type):
 		if type == "basic":
-			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/example.html")
+			url = QUrl.fromLocalFile("{}/d3js/example.html".format(self.cwd))
 		elif type == "dagre":
-			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/synthe/learner/d3js/example2_mealy.html")
+			url = QUrl.fromLocalFile("{}/d3js/vis.html".format(self.cwd))
 		else:
-			url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/example3.html")
+			url = QUrl.fromLocalFile("{}/d3js/example3.html".format(self.cwd))
 
 		self.load(url)
 
@@ -124,7 +125,7 @@ class WebViewer(QWebEngineView):
 		self.frame.dotview.load_image(self.frame.label,"graph.png")
 
 	def load_blank_html(self):
-		url = QUrl.fromLocalFile("/Users/david/Documents/UW_Research/BodystormingHRI/learner/d3js/blank.html")
+		url = QUrl.fromLocalFile("{}/d3js/blank.html".format(self.cwd))
 		self.load(url)
 
 	def make_dimensions_file(self):

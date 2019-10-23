@@ -1,3 +1,5 @@
 #!/bin/bash
 cd learner
-python3 gui.py
+
+cwd=$PWD
+python3 gui.py -c=$cwd -d

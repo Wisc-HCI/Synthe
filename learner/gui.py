@@ -71,8 +71,14 @@ class App(QMainWindow):
         parser = argparse.ArgumentParser()
         parser.add_argument("-d", "--debug", help="run Synthé in debug mode",
                         action="store_true")
+        parser.add_argument("-c", "--cwd", default="", help="the current working directory",
+                        action="store")
         args = parser.parse_args()
         self.debug = args.debug
+        self.cwd = args.cwd
+        if self.cwd == "":
+            print("ERROR: must provide a working directory to run Synthé")
+            exit(1)
 
         self.initialized = False
         self.initUI()
@@ -93,7 +99,7 @@ class App(QMainWindow):
         self.dotview = DotViewer()
         self.traceView = ExampleDrawerContainer(parent=self.label)
         self.traceView.setGeometry(self.left-10, self.top-10, self.width - 410, self.height - 105)
-        self.webView = WebViewer(self, self.label)
+        self.webView = WebViewer(self, self.label, self.cwd)
         self.webView.setGeometry(self.left-10, self.top-10, self.width - 410, self.height - 105)
         self.statusView = StatusPane(self.label)
         self.statusView.remove_status("all")
