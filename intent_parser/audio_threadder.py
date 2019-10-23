@@ -10,17 +10,12 @@ from scipy.io import wavfile
 import numpy as np
 from copy import deepcopy
 import time
+import json
 
 class AudioThreadder():
 
 	def __init__(self, mic_id):
 		self.record_flag = False
-
-		# DO one of the following:
-		# 1) if argument 2 exists and the argument is "train", then train a new file
-		# 2) if argument 2 exists and the argument is "test", then test the file specified
-		# 2) otherwise if the default directory is empty then exit prematurely
-		# 3) otherwise (DEBUGGING PURPOSES ONLY), use the most recently-generated file
 
 		# if not empty, determine the most recently-created subdirectory
 		all_subdirs = ['../intent_parser/projects/default/{}'.format(d) for d in os.listdir('../intent_parser/projects/default/') if os.path.isdir('../intent_parser/projects/default/{}'.format(d))]
@@ -40,6 +35,14 @@ class AudioThreadder():
 		if ".wav" not in self.audio_filename:
 			print("ERROR: audio filename must have .wav extension")
 			exit(1)
+
+		# get IBM watson username and password keys
+		self.user = None
+		self.pass = None
+		with open("ibm_keys.json","r") as infile:
+			user_pass_dict = json.load(infile)
+			self.user = user_pass_dict["username"]
+			self.pass = user_pass_dict["password"]
 
 		self.remove_sound_file()
 
@@ -97,7 +100,7 @@ class AudioThreadder():
 	def speech_to_text(self, mic_id):
 		# get the intent array
 		# final tuple format: (intent, classification confidence, speaker, start time, end time, speech)
-		unparsed_output = intent_parser.recognize_speech(self.audio_filename)
+		unparsed_output = intent_parser.recognize_speech(self.audio_filename, self.user, self.pass)
 		final_output = []
 		for item in unparsed_output:
 			parse_data = self.intent_parser_util.parse_intent(item[0])

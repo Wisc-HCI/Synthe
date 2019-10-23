@@ -18,46 +18,6 @@ from rasa_nlu.config import RasaNLUModelConfig
 from rasa_nlu.model import Trainer, Metadata, Interpreter
 from rasa_nlu import config
 
-def pickle_recognize_speech(audio_file, pickle_file_count):
-    """return: list of strings representing speech in the audio, delimited
-        by substantial silence
-
-        Don't use this method. It really isn't worth it."""
-    pickle_file_name = (
-        pickle_file_base_name + '_' + str(pickle_file_count) + '.p')
-    try:
-        #Attempt to load a stored json object from pickle_file_name.
-        #open(pickle_file_name) will throw to the except
-        #block if the file does not exist
-        speech_recognition_results = pickle.load(
-            open(pickle_file_name, 'rb'))
-        print('Loaded previous instance of speech recognition from: '
-            + pickle_file_name)
-        print(json.dumps(speech_recognition_results, indent=2))
-        transcripts = []
-        for result in speech_recognition_results["results"]:
-            transcripts.append(result["alternatives"][0]['transcript'])
-        pickle_file_count = pickle_file_count + 1
-    except (IOError, EOFError) as e:
-        print('no pickle file found')
-        #debug=True disables access to IBM Cloud to conserve access resources
-        if not debug:
-            speech_recognition_results = call_watson_tts(audio_file)
-            #the speech_recognition_results item is an amalgam
-            #of dicts and lists, but this should access the final
-            #transcript decided on by text-to-speech.
-            transcripts = []
-            try:
-                for result in speech_recognition_results["results"]:
-                    transcripts.append(result["alternatives"][0]['transcript'])
-            except TypeError as e:
-                print("debug error handling")
-                print("Output from Watson API: " + speech_recognition_results)
-                print(speech_recognition_results["results"])
-                print(speech_recognition_results["results"][0])
-    return transcripts
-
-
 def recognize_speech(audio_file):
     """ audio_file: type string: string filepath to a valid audio file
     Should be of filetype .wav
@@ -154,18 +114,14 @@ def post_process(text):
     word_list = text.split()
     return ' '.join([i for i in word_list if i != "%%HESITATION"])
 
-def call_watson_tts(file):
+def call_watson_tts(file, user, pass):
     """return: json format of speech recognition as specified by the
     IBM Watson speech-to-text documentation
     """
     speech_to_text = SpeechToTextV1(
-        username = 'cc4c341b-cd9f-4191-bc2a-091d7bd559ff',
-        password = 'ceEVwJXL2gHl'
+        username = user,
+        password = pass
     )
-
-    #print(join(dirname(__file__), './.', file))
-    #with open(join(dirname(__file__), './.', file), 'rb') as audio_file:
-    print(file)
 
     # wait until file exists
     while not os.path.exists(file):

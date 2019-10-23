@@ -4,20 +4,107 @@
   <design>Help Desk</design>
   <state id="0" init="True">
     <transition id="0" />
+    <transition id="1" />
   </state>
-  <state id="1" init="False" />
+  <state id="1" init="False">
+    <transition id="2" />
+    <transition id="3" />
+  </state>
   <state id="2" init="False" />
   <state id="3" init="False" />
-  <state id="4" init="False" />
-  <state id="5" init="False" />
+  <state id="4" init="False">
+    <transition id="4" />
+    <transition id="5" />
+    <transition id="6" />
+  </state>
+  <state id="5" init="False">
+    <transition id="7" />
+  </state>
   <transition id="0">
     <source ref="0" />
+    <target ref="5" />
+    <input ref="location_statement" />
+    <output ref="location_statement" />
+    <gesture ref="None" />
+    <speech>
+      <value>TARGET RELATIVE_LOCATION </value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="1">
+    <source ref="0" />
     <target ref="4" />
+    <input ref="greeting" />
+    <output ref="greeting" />
+    <gesture ref="None" />
+    <speech>
+      <value>hello </value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="2">
+    <source ref="1" />
+    <target ref="1" />
+    <input ref="location_statement" />
+    <output ref="location_statement" />
+    <gesture ref="None" />
+    <speech>
+      <value>%HESITATION so </value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="3">
+    <source ref="1" />
+    <target ref="2" />
+    <input ref="Empty" />
+    <output ref="location_statement" />
+    <gesture ref="Beat" />
+    <speech>
+      <value>%HESITATION so </value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="4">
+    <source ref="4" />
+    <target ref="4" />
+    <input ref="affirm_deny" />
+    <output ref="location_statement" />
+    <gesture ref="None" />
+    <speech>
+      <value>well the TARGET </value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="5">
+    <source ref="4" />
+    <target ref="1" />
     <input ref="Empty" />
     <output ref="location_query" />
-    <gesture ref="Point" />
+    <gesture ref="Beat" />
     <speech>
-      <value>to have </value>
+      <value>a so so I have to tell you where the socks </value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="6">
+    <source ref="4" />
+    <target ref="2" />
+    <input ref="farewell" />
+    <output ref="farewell" />
+    <gesture ref="None" />
+    <speech>
+      <value>goodbye.  </value>
+    </speech>
+    <timeout timeout="3" />
+  </transition>
+  <transition id="7">
+    <source ref="5" />
+    <target ref="4" />
+    <input ref="location_query" />
+    <output ref="location_statement" />
+    <gesture ref="None" />
+    <speech>
+      <value>TARGET on </value>
     </speech>
     <timeout timeout="3" />
   </transition>
