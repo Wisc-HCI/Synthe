@@ -8,7 +8,6 @@ import traceback
 from bodystorming_simulation import *
 from sat_solver import *
 from controller import *
-from dotviewer import *
 from webviewer import *
 from bodystorm_history import *
 from connection_label import *
@@ -96,7 +95,6 @@ class App(QMainWindow):
         self.label.setGeometry(self.left-5, self.top-5, self.width - 410, self.height - 105)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setStyleSheet('background-color: white')
-        self.dotview = DotViewer()
         self.traceView = ExampleDrawerContainer(parent=self.label)
         self.traceView.setGeometry(self.left-10, self.top-10, self.width - 410, self.height - 105)
         self.webView = WebViewer(self, self.label, self.cwd)

@@ -1,6 +1,5 @@
 import sys
 import json
-from grapher import *
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
@@ -26,8 +25,6 @@ class WebViewer(QWebEngineView):
 	def update_graph(self, solution, bodystorm):
 		self.make_dimensions_file()
 		raw_edges = solution.results
-
-		Grapher().make_mealy(raw_edges,self.frame.bodystorm)
 
 		original_state_mapper = {}
 		for edge in raw_edges:
@@ -109,8 +106,6 @@ class WebViewer(QWebEngineView):
 		with open('d3js/links.json', 'w') as outfile:
 			json.dump(json_array, outfile)
 
-		Grapher().make_regular(raw_edges,self.frame.bodystorm)
-
 	def load_graph(self, type):
 		if type == "basic":
 			url = QUrl.fromLocalFile("{}/d3js/example.html".format(self.cwd))
@@ -120,9 +115,6 @@ class WebViewer(QWebEngineView):
 			url = QUrl.fromLocalFile("{}/d3js/example3.html".format(self.cwd))
 
 		self.load(url)
-
-		print("painting dot view")
-		self.frame.dotview.load_image(self.frame.label,"graph.png")
 
 	def load_blank_html(self):
 		url = QUrl.fromLocalFile("{}/d3js/blank.html".format(self.cwd))
