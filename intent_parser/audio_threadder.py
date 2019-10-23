@@ -38,11 +38,11 @@ class AudioThreadder():
 
 		# get IBM watson username and password keys
 		self.user = None
-		self.pass = None
-		with open("ibm_keys.json","r") as infile:
+		self.password = None
+		with open("../intent_parser/ibm_keys.json","r") as infile:
 			user_pass_dict = json.load(infile)
 			self.user = user_pass_dict["username"]
-			self.pass = user_pass_dict["password"]
+			self.password = user_pass_dict["password"]
 
 		self.remove_sound_file()
 
@@ -100,7 +100,7 @@ class AudioThreadder():
 	def speech_to_text(self, mic_id):
 		# get the intent array
 		# final tuple format: (intent, classification confidence, speaker, start time, end time, speech)
-		unparsed_output = intent_parser.recognize_speech(self.audio_filename, self.user, self.pass)
+		unparsed_output = intent_parser.recognize_speech(self.audio_filename, self.user, self.password)
 		final_output = []
 		for item in unparsed_output:
 			parse_data = self.intent_parser_util.parse_intent(item[0])

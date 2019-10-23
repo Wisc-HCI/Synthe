@@ -18,7 +18,7 @@ from rasa_nlu.config import RasaNLUModelConfig
 from rasa_nlu.model import Trainer, Metadata, Interpreter
 from rasa_nlu import config
 
-def recognize_speech(audio_file):
+def recognize_speech(audio_file, user, password):
     """ audio_file: type string: string filepath to a valid audio file
     Should be of filetype .wav
     Return type: list of tuple ([string audio_transcript],
@@ -34,7 +34,7 @@ def recognize_speech(audio_file):
             speech_recognition_results = json.load(infile)
     else:
         print("about to call watson tts")
-        speech_recognition_results = call_watson_tts(audio_file)
+        speech_recognition_results = call_watson_tts(audio_file, user, password)
         print("received results from watson_tts")
 
     # we can also save our transcript
@@ -114,13 +114,13 @@ def post_process(text):
     word_list = text.split()
     return ' '.join([i for i in word_list if i != "%%HESITATION"])
 
-def call_watson_tts(file, user, pass):
+def call_watson_tts(file, user, password):
     """return: json format of speech recognition as specified by the
     IBM Watson speech-to-text documentation
     """
     speech_to_text = SpeechToTextV1(
         username = user,
-        password = pass
+        password = password
     )
 
     # wait until file exists
