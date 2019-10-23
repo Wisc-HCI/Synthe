@@ -34,6 +34,8 @@ To use D3 and Dagre D3, place the d3js folder and node_modules folder in /learne
 
 At minimum, Synthé requires only one microphone be connected to the computer that it is run on. This can be the default microphone on any modern laptop. To acheive full functionality of Synthé, two microphones should be connected. Synthé will automatically detect the presence of microphones.
 
+For your speech to be recognized, you will need to have an account with IBM Watson. Generate username and password credentials with your account, and place them in the ```intent_parser/ibm_keys.json``` file.
+
 ### Gesture Recognition
 
 Synthé currently supports gesture recognition through the Myo Armband [2]. Gesture recognition is not required to run Synthé, though. To support the usage of any device that records acceleration and orientation, Synthé interfaces can interface with these technologies through a server-client setup. Support for other gesture recognition technologies must be developed separately.
@@ -44,7 +46,7 @@ If you plan on using the Myo armband, you will need to install the SDK from http
 
 Synthé also supports the ability to simulate programs created through its program synthesis engine on a real robot. The only robot currently supported is Nao [3]. To support the usage of any robot that simulates programs created through Synthé, Synthé interfaces with these robots through a server-client setup. Support for other robots must be developed separately.
 
-If you plan on simulating the code on a Nao robot, you will need to install the naoqi SDK (version 2.1.4) from softbank robotics. Place the SDK in the /robot folder.
+If you plan on simulating the code on a Nao robot, you will need to install the naoqi SDK (version 2.1.4) from softbank robotics. Place the SDK in the /robot folder. Additionally, you will need a credentials file for Google Cloud, and will need to create a ```GOOGLE_APPLICATION_CREDENTIALS``` environment variable with the location of this file.
 
 # Running Synthé
 
