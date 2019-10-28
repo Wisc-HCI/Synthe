@@ -2,7 +2,7 @@
 
 Synthé is atool that allows designers of human-robot interactions to bodystorm their interactions. Bodystorming is an embodied design method that involves brainstorming via role-playing, and in an environment that is true to the product being designed [1].
 
-In bodystorming, a design team acts out an exampleinteraction between a human and a robot, where one user plays the human and another plays the robot. Synthé records the speech and getures of the designers, and employs program synthesis to create an executable human-robot interaction program. This program can be simulated on a Nao robot.
+In bodystorming, a design team acts out an example interaction between a human and a robot, where one user plays the human and another plays the robot. Synthé records the speech and getures of the designers, and employs program synthesis to create an executable human-robot interaction program. This program can be simulated on a Nao robot.
 
 # Software and Hardware
 
@@ -50,7 +50,9 @@ If you plan on simulating the code on a Nao robot, you will need to install the 
 
 # Running Synthé
 
-From the top directory, execute ```./synthe```.
+If this is your first time running Synthé, you will ned to generatean example speech model. The example we use for demonstration involves a robot sitting at a help desk at a store. From the ```intent_parser``` directory, execute ```sh create_speech_data.sh``` to generate the example model.
+
+Once the model has been generated, from the top directory, execute ```./synthe```. 
 
 Note that without microphones and a robot hooked up to Synthé, capturing designers' intent is limited to the command line. When you press record, you have the option to enter the inputs and outputs of the human and the robot manually on the command line.
 
