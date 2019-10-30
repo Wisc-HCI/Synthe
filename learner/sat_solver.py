@@ -1,6 +1,5 @@
 from z3 import *
 from random import shuffle
-from goptimizer import *
 import time
 import copy
 from copy import deepcopy
