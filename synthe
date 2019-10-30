@@ -2,4 +2,4 @@
 cd learner
 
 cwd=$PWD
-python3 gui.py -c=$cwd -d
+python3 gui.py -c=$cwd

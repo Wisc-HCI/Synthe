@@ -7,4 +7,4 @@ fi
 
 python3 model_trainer.py ./data/help_desk.json ./config/config_spacy.yml
 cd projects
-mv projects/model* projects/default
+mv projects/model* projects/default/help_desk

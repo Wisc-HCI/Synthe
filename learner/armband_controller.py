@@ -46,6 +46,7 @@ class ArmbandController:
 			#now keep talking with the client
 			#wait to accept a connection - blocking call
 			self.conn1, addr = self.s1.accept()
+			self.connected = True
 			print('SERVER >> Connected with intent parser 1' + addr[0] + ':' + str(addr[1]) + ' on port ' + str(self.PORT1))
 
 		except:

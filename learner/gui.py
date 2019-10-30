@@ -312,8 +312,9 @@ class App(QMainWindow):
             self.statusView.update_status("record")
 
             # must start recording simultaneously
-            print("starting armband")
-            arm_status = self.armband_connector.start_record()
+            if self.armband_connector.connected:
+                print("starting armband")
+                arm_status = self.armband_connector.start_record()
             print("starting audio")
             status = self.bodystorm_listener.start_record(self.participant_names, self.participants_to_devices)
 
@@ -338,8 +339,9 @@ class App(QMainWindow):
             #armband_array1, armband_array2 = self.armband_connector.end_record()
             #array1, array2 = self.bodystorm_listener.end_record()
 
-            print("beginning end thread 1")
-            _thread.start_new_thread(self.armband_connector.end_record, ("end_thread_armband",))
+            if self.armband_connector.connected:
+                print("beginning end thread 1")
+                _thread.start_new_thread(self.armband_connector.end_record, ("end_thread_armband",))
             #self.armband_connector.end_record("sdf")
             print("beginning end thread 2")
             num_participants = len(self.participant_names)
@@ -351,13 +353,14 @@ class App(QMainWindow):
 
             #print("locking while waiting for end")
             #while self.bodystorm_listener.get_return_vals() is None:
-            while self.armband_connector.get_return_vals() is None or self.bodystorm_listener.get_return_vals() is None:
+            while (self.armband_connector.get_return_vals() is None and self.armband_connector.connected) or self.bodystorm_listener.get_return_vals() is None:
                 pass
 
             print("obtaining return values")
             armband_array1 = "start: 1553722212.6676118 data:"
             armband_array2 = "start: 1553722212.6676118 data:"
-            armband_array1, armband_array2 = self.armband_connector.get_return_vals()
+            if self.armband_connector.connected:
+                armband_array1, armband_array2 = self.armband_connector.get_return_vals()
             array1, array2 = self.bodystorm_listener.get_return_vals()
 
             self.armband_connector.clear_messages()
