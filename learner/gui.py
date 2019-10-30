@@ -30,6 +30,7 @@ import random
 import pickle
 import _thread
 import argparse
+import difflib
 
 class App(QMainWindow):
 
@@ -410,8 +411,10 @@ class App(QMainWindow):
             return
 
         return_prematurely = False
+        avail_speeches = self.bodystorm.Alphabet.get_inputs()
         while True:
-            inp = input("Human input: ")
+            print("Human input (type \'exit\' to end conversation): ", end = '')
+            inp = input("")
             if "exit" in inp:
                 break
             elif "random" in inp:
@@ -473,10 +476,26 @@ class App(QMainWindow):
                 self.bodystorm.create_demo(array_input, array_output)
                 return_prematurely = True
                 break
-            print("Human entered " + str(inp))
+            else:
+                if inp not in avail_speeches:
+                    close_matches = difflib.get_close_matches(inp, avail_speeches)
+                    if len(close_matches) == 0:
+                        inp = "greeting"
+                    else:
+                        inp = close_matches[0]
+                        print("  (switched to {})".format(inp))
+            #print("Human entered " + str(inp))
 
-            out = input("Robot output: ")
-            print("Robot entered " + str(out))
+            print("Robot output: ", end='')
+            out = input("")
+            if out not in avail_speeches:
+                close_matches = difflib.get_close_matches(out, avail_speeches)
+                if len(close_matches) == 0:
+                    out = "greeting"
+                else:
+                    out = close_matches[0]
+                    print("  (switched to {})".format(out))
+            #print("Robot entered " + str(out))
 
             demo_list.append((inp, out))
 
