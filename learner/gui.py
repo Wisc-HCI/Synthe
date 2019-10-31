@@ -5,6 +5,7 @@ from PyQt5.QtCore import QSize, QRect, Qt, QCoreApplication
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QFrame, QScrollArea, QSlider, QComboBox, QGroupBox, QProgressBar, QPushButton, QListWidget, QListWidgetItem, QMainWindow, QAction, QSpinBox, QCheckBox
 from PyQt5.QtGui import QImage, QPalette, QBrush, QIcon, QPixmap, QPainter, QColor, QFont
 import traceback
+import imp
 from bodystorming_simulation import *
 from sat_solver import *
 from controller import *
@@ -71,9 +72,12 @@ class App(QMainWindow):
         parser = argparse.ArgumentParser()
         parser.add_argument("-d", "--debug", help="run Synthé in debug mode",
                         action="store_true")
+        parser.add_argument("-r", "--userobot", default=0, help="run Synthé with the Nao robot",
+                        action="store")
         parser.add_argument("-c", "--cwd", default="", help="the current working directory",
                         action="store")
         args = parser.parse_args()
+        self.userobot = args.userobot
         self.debug = args.debug
         self.cwd = args.cwd
         if self.cwd == "":
@@ -116,7 +120,7 @@ class App(QMainWindow):
         self.bodystorm_history = BodystormHistory("Demonstrations", parent=self.plotlabel1, frame=self)
 
         # simulate and record button
-        self.robot_connector = RobotController(self)
+        self.robot_connector = RobotController(self,userobot=self.userobot)
         self.simulate_button = SimulateButton('Simulate', self.plotlabel1, self, self.robot_connector)
         self.simulate_button.clicked.connect(self.simulate)
         self.button = RecordButton('Record', self.plotlabel1, self)
@@ -155,16 +159,18 @@ class App(QMainWindow):
         connect_menu = self.mainMenu.addMenu('Devices')
         connectButton = QAction('Choose Audio Inputs', self)
         connectButton.triggered.connect(self.open_audio_pref)
-        connectRobotButton = QAction('Connect Robot', self)
-        connectRobotButton.triggered.connect(self.robot_connector.on_click)
-        connectArmbandButton = QAction('Connect Armband', self)
-        connectArmbandButton.triggered.connect(self.armband_connector.onclick)
-        calibrate_armband_button = QAction('Calibrate Armband', self)
-        calibrate_armband_button.triggered.connect(self.armband_connector.calibrate)
         connect_menu.addAction(connectButton)
-        connect_menu.addAction(connectArmbandButton)
-        connect_menu.addAction(calibrate_armband_button)
-        connect_menu.addAction(connectRobotButton)
+        if found_myo:
+            connectArmbandButton = QAction('Connect Armband', self)
+            connectArmbandButton.triggered.connect(self.armband_connector.onclick)
+            calibrate_armband_button = QAction('Calibrate Armband', self)
+            calibrate_armband_button.triggered.connect(self.armband_connector.calibrate)
+            connect_menu.addAction(connectArmbandButton)
+            connect_menu.addAction(calibrate_armband_button)
+        if self.userobot==1:
+            connectRobotButton = QAction('Connect Robot', self)
+            connectRobotButton.triggered.connect(self.robot_connector.on_click)
+            connect_menu.addAction(connectRobotButton)
 
         self.parameters_group = QGroupBox("Parameters", parent=self.plotlabel1)
         self.parameters_group.setGeometry(10, self.plotlabel1.height() - 270 - 110 - 10, self.plotlabel1.width() - 20, 100)

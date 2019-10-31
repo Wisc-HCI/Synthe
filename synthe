@@ -1,5 +1,11 @@
 #!/bin/bash
 cd learner
 
+if [ -z "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then
+	rob=0
+else
+	rob=1
+fi
+
 cwd=$PWD
-python3 gui.py -c=$cwd
+python3 gui.py -c=$cwd -r=$rob

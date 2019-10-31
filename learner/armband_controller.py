@@ -2,7 +2,13 @@ import socket
 import pickle
 import select
 import sys
-from gesture_training_pane import *
+try:
+	imp.find_module('myo')
+	found_myo=True
+except:
+	found_myo=False
+if found_myo:
+	from gesture_training_pane import *
 
 class ArmbandController:
 

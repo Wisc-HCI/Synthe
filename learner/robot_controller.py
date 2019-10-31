@@ -211,12 +211,13 @@ class GCP_Streamer:
 
 class RobotController():
 
-	def __init__(self, frame, host="localhost"):
+	def __init__(self, frame, host="localhost", userobot=1):
 		self.HOST = host
 		self.PORT1 = 8889
 		self.frame = frame
 		self.connected = False
-		self.gcp_speech = GCP_Streamer()
+		if userobot==1:
+			self.gcp_speech = GCP_Streamer()
 
 	def on_click(self):
 		if self.connected:

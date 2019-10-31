@@ -12,13 +12,22 @@ These instructions will get you a copy of the project up and running on your loc
 
 To install Synthé, the following are required:
 
-- Python 3
-- Python bindings for the Z3 prover
+- Python 3, with the following installed:
+	- watson_developer_cloud
+	- google-cloud-speech
+	- rasa_nlu
+	- PyAudio
+	- sounddevice
+	- python bindings for the z3 prover
+
+If PyAudio fails to install, you may need to install ```libportaudio2``` and ```portaudio19-dev``` onto your system. On Ubuntu, this can be done with ```sudo apt-get install libportaudio2 portaudio19-dev```.
+
+Rasa-nlu will likely require sklearn_crfsuite and spacy to work. Spacy requires a model of the English language to work, which you can install with ```python3 -m spacy download en```.
+
+You must also have the following installed:
+
 - D3
 - Dagre D3
-- Rasa-nlu
-- PyAudio
-- sounddevice
 
 Once the above libraries are installed, pull the code from this repository.
 
